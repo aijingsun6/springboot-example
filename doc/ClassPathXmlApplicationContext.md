@@ -15,23 +15,6 @@ classDiagram
 ```
 
 ## 2. refresh
-```mermaid
-
-classDiagram
-    AbstractApplicationContext <|--AbstractRefreshableApplicationContext:extends
-    AbstractRefreshableApplicationContext <|-- AbstractRefreshableConfigApplicationContext:extends
-    AbstractRefreshableConfigApplicationContext <|-- AbstractXmlApplicationContext:extends
-    AbstractXmlApplicationContext <|-- ClassPathXmlApplicationContext:extends
-
-class AbstractApplicationContext {
-  + void refresh()
-    abstract void refreshBeanFactory() 
-}
-
-class AbstractRefreshableApplicationContext {
-    void refreshBeanFactory()
-}
-```
 
 ## 2.1 是如何加载bean定义的
 ```
