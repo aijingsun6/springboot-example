@@ -128,9 +128,9 @@ flowchart TD
 
 ## 2.4 核心方法 getSingleton(String beanName, boolean allowEarlyReference) 
 术语：
-一级缓存：singletonObjects
-二级缓存：earlySingletonObjects
-三级缓存：singletonFactories
+- 一级缓存：singletonObjects
+- 二级缓存：earlySingletonObjects
+- 三级缓存：singletonFactories
 
 ```mermaid
 flowchart TD
