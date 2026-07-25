@@ -79,7 +79,7 @@ protected void removeSingleton(String beanName) {
 	}
 
 ```
-## 2.3 核心方法 getSingleton
+## 2.3 核心方法 getSingleton(String beanName, ObjectFactory<?> singletonFactory)
 ```java
 public Object getSingleton(String beanName, ObjectFactory<?> singletonFactory)
 
@@ -120,5 +120,37 @@ flowchart TD
     KK --> L
     L --> M{是否新创bean?}
     M --> Yes --> N[回放到一级缓存]
-    N --> O[结束]
+    N --> O[宽松模式删除beanName]
+    O --> P[结束]
 ```
+总结：
+1. 该方法的操作对象是一级缓存
+
+## 2.4 核心方法 getSingleton(String beanName, boolean allowEarlyReference) 
+术语：
+一级缓存：singletonObjects
+二级缓存：earlySingletonObjects
+三级缓存：singletonFactories
+
+```mermaid
+flowchart TD
+Start[开始] --> A{一级缓存有没有?}
+A -- Yes --> B[return]
+A -- No --> C{是否在创建中?}
+C -- Yes --> B
+C -- No --> E{二级缓存有没有?}
+E -- Yes -->B
+E -- Noe -->G{加锁成功?}
+G -- Yes -->I{一级缓存有没有?}
+G -- No --> B
+I --Yes -->B
+I --No --> K{二级缓存有没有?}
+K -- Yes --> B
+K -- No -->M[三级缓存有没有?]
+M --Yes -->N[创建bean]
+M --No -->B
+N --> O[放二级缓存，删三级缓存]
+O --> B
+```
+总结：
+1. 这个方法与1，2，3级缓存均有交互
