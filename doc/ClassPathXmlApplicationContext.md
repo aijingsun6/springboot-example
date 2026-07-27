@@ -39,3 +39,40 @@ classDiagram
 ```
 执行完成后 beanDefinitionMap 是有值的
 
+调用栈如下
+```
+AbstractApplicationContext.java
+refresh()
+obtainFreshBeanFactory()
+refreshBeanFactory()
+
+AbstractRefreshableApplicationContext.java
+refreshBeanFactory()
+loadBeanDefinitions()
+
+AbstractXmlApplicationContext.java
+loadBeanDefinitions()
+
+```
+
+## 2.2 bean 是如何初始化的
+```
+
+```
+调用栈如下
+```
+AbstractApplicationContext.java
+refresh()
+finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory)
+beanFactory.preInstantiateSingletons();
+
+
+DefaultListableBeanFactory.java
+preInstantiateSingletons()
+instantiateSingleton()
+
+AbstractBeanFactory.java
+getBean()
+
+
+```
