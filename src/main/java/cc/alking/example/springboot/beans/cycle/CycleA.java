@@ -1,4 +1,4 @@
-package cc.alking.example.springboot.beans;
+package cc.alking.example.springboot.beans.cycle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
