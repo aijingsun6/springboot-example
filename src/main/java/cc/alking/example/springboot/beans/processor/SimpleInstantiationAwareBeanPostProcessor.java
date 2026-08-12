@@ -14,33 +14,33 @@ public class SimpleInstantiationAwareBeanPostProcessor implements InstantiationA
 
     @Override
     public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
-        LOGGER.info("postProcessBeforeInstantiation,{},{}", beanClass, beanName);
+        LOGGER.info("1. postProcessBeforeInstantiation,beanClass:{}, beanName:{}", beanClass, beanName);
         return null;
     }
 
     @Override
-    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        LOGGER.info("postProcessBeforeInitialization,{},{}", bean, beanName);
-        return bean;
-    }
-
-    @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        LOGGER.info("postProcessAfterInitialization,{},{}", bean, beanName);
-        return bean;
-    }
-
-    @Override
     public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
-        LOGGER.info("postProcessAfterInstantiation,{},{}", bean, beanName);
+        LOGGER.info("2. postProcessAfterInstantiation,bean:{},beanName:{}", bean, beanName);
         return true;
     }
 
     @Override
     public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName)
             throws BeansException {
-        LOGGER.info("postProcessProperties,{},{},{}", pvs, bean, beanName);
+        LOGGER.info("3. postProcessProperties,pvs:{},bean:{},beanName:{}", pvs, bean, beanName);
         return pvs;
+    }
+
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        LOGGER.info("4. postProcessBeforeInitialization,bean:{},beanName:{}", bean, beanName);
+        return bean;
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        LOGGER.info("5. postProcessAfterInitialization,bean:{},beanName:{}", bean, beanName);
+        return bean;
     }
 
 }

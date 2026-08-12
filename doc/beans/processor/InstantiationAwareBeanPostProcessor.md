@@ -1,0 +1,10 @@
+# InstantiationAwareBeanPostProcessor
+
+bean生命周期中的回调接口，提供自定义bean的创建与属性化
+
+几个重要的生命周期函数,初始化的顺序如下
+1. postProcessBeforeInstantiation
+2. postProcessAfterInstantiation
+3. postProcessProperties
+4. postProcessBeforeInitialization
+5. postProcessAfterInitialization
