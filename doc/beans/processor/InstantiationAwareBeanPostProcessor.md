@@ -9,16 +9,33 @@ bean生命周期中的回调接口，提供自定义bean的创建与属性化
 4. postProcessBeforeInitialization
 5. postProcessAfterInitialization
 
+# 0.类继承关系
+```mermaid
+classDiagram
+    BeanPostProcessor <|-- InstantiationAwareBeanPostProcessor
+
+class BeanPostProcessor {
+     + Object postProcessBeforeInitialization(Object bean, String beanName)
+     + Object postProcessAfterInitialization(Object bean, String beanName)
+}
+
+class InstantiationAwareBeanPostProcessor {
+    + Object postProcessBeforeInstantiation(Class beanClass, String beanName) 
+    + boolean postProcessAfterInstantiation(Object bean, String beanName) 
+    + PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName)
+} 
+
+```
 
 # 1. 他们与lifecycle的顺序如何
 - postProcessBeforeInstantiation
 - postProcessAfterInstantiation
 - postProcessProperties
 - postProcessBeforeInitialization
-- PostConstruct
+- @PostConstruct
 - afterPropertiesSet
 - postProcessAfterInitialization
-- PreDestroy
+- @PreDestroy
 - destroy
 
 # 2.调用堆栈如下
@@ -35,8 +52,11 @@ AbstractAutowireCapableBeanFactory.createBean
     AbstractAutowireCapableBeanFactory.initializeBean
         AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization
             postProcessBeforeInitialization
+            @PostConstruct
         AbstractAutowireCapableBeanFactory.invokeInitMethods
             afterPropertiesSet
+        AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsAfterInitialization
+            postProcessAfterInitialization
         
 
 
