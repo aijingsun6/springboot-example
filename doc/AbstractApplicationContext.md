@@ -298,7 +298,21 @@ protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 它会执行所有已注册的 BeanFactoryPostProcessor。
 
 典型的实现如 ConfigurationClassPostProcessor，用于解析 @Configuration、@Bean 等注解，从而生成更多的 BeanDefinition。
+例如，在web环境中，AnnotationConfigServletWebServerApplicationContext 会注册bean = org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory
 
+```java
+
+//SharedMetadataReaderFactoryContextInitializer$CachingMetadataReaderFactoryPostProcessor
+
+private void register(BeanDefinitionRegistry registry) {
+			if (!registry.containsBeanDefinition(BEAN_NAME)) {
+				BeanDefinition definition = BeanDefinitionBuilder
+					.rootBeanDefinition(SharedMetadataReaderFactoryBean.class, SharedMetadataReaderFactoryBean::new)
+					.getBeanDefinition();
+				registry.registerBeanDefinition(BEAN_NAME, definition);
+			}
+		}
+```
 
 ## 2.6. 注册 Bean 后处理器 (registerBeanPostProcessors)
 这一步从 BeanFactory 中找出所有实现了 BeanPostProcessor 接口的 Bean，并将它们注册到容器中。
