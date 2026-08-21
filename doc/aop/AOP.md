@@ -348,6 +348,64 @@ public class AroundExample {
 	}
 }
 ```
+### 3.4.7 Advice参数
+第一个参数的类型总是 ProceedingJoinPoint
+
+#### 3.4.7.1 使用 args 来绑定参数
+
+```java
+@Before("execution(* com.xyz.dao.*.*(..)) && args(account,..)")
+public void validateAccount(Account account) {
+	// ...
+}
+// 或者使用名称切面
+@Pointcut("execution(* com.xyz.dao.*.*(..)) && args(account,..)")
+private void accountDataAccessOperation(Account account) {}
+
+@Before("accountDataAccessOperation(account)")
+public void validateAccount(Account account) {
+	// ...
+}
+```
+#### 3.4.7.2 使用 @annotation 来绑定参数
+```java
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Auditable {
+	AuditCode value();
+}
+
+@Before("com.xyz.Pointcuts.publicMethod() && @annotation(auditable)")
+public void audit(Auditable auditable) {
+	AuditCode code = auditable.value();
+	// ...
+}
+
+```
+#### 3.4.7.3 Advice 泛型参数
+```java
+public interface Sample<T> {
+	void sampleGenericMethod(T param);
+	void sampleGenericCollectionMethod(Collection<T> param);
+}
+
+@Before("execution(* ..Sample+.sampleGenericMethod(*)) && args(param)")
+public void beforeSampleMethod(MyType param) {
+	// Advice implementation
+}
+```
+#### 3.4.7.4 显式绑定参数
+```java
+
+@Before(
+	value = "com.xyz.Pointcuts.publicMethod() && target(bean) && @annotation(auditable)",
+	argNames = "bean,auditable")
+public void audit(Object bean, Auditable auditable) {
+	AuditCode code = auditable.value();
+	// ... use code and bean
+}
+```
 
 
 
