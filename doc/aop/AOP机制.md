@@ -111,3 +111,84 @@ xml配置文件
 ```
 
 # 2. 代码解读
+
+```mermaid
+sequenceDiagram
+
+    AbstractAutowireCapableBeanFactory ->>AbstractAutowireCapableBeanFactory:createBean
+    AbstractAutowireCapableBeanFactory ->>AbstractAutowireCapableBeanFactory:doCreateBean
+    AbstractAutowireCapableBeanFactory ->>AbstractAutowireCapableBeanFactory:populateBean
+    AbstractAutowireCapableBeanFactory ->>AbstractAutowireCapableBeanFactory:initializeBean
+
+```
+创建代理发生在 initializeBean
+
+sequenceDiagram
+
+    AbstractAutowireCapableBeanFactory ->>AbstractAutowireCapableBeanFactory:invokeAwareMethods
+    AbstractAutowireCapableBeanFactory ->>AbstractAutowireCapableBeanFactory:applyBeanPostProcessorsBeforeInitialization
+    AbstractAutowireCapableBeanFactory ->>AbstractAutowireCapableBeanFactory:invokeInitMethods
+    AbstractAutowireCapableBeanFactory ->>AbstractAutowireCapableBeanFactory:applyBeanPostProcessorsAfterInitialization
+
+```
+
+```java
+// AbstractAutowireCapableBeanFactory.java
+public Object applyBeanPostProcessorsAfterInitialization(Object existingBean, String beanName)
+			throws BeansException {
+
+		Object result = existingBean;
+		for (BeanPostProcessor processor : getBeanPostProcessors()) {
+            // processor = AnnotationAwareAspectJAutoProxyCreator
+            // 创建代理
+			Object current = processor.postProcessAfterInitialization(result, beanName);
+			if (current == null) {
+				return result;
+			}
+			result = current;
+		}
+		return result;
+	}
+
+```
+
+```java
+// AbstractAutoProxyCreator.java
+public Object postProcessAfterInitialization(@Nullable Object bean, String beanName) {
+		if (bean != null) {
+			Object cacheKey = getCacheKey(bean.getClass(), beanName);
+			if (this.earlyBeanReferences.remove(cacheKey) != bean) {
+				return wrapIfNecessary(bean, beanName, cacheKey);
+			}
+		}
+		return bean;
+}
+protected Object wrapIfNecessary(Object bean, String beanName, Object cacheKey) {
+		if (StringUtils.hasLength(beanName) && this.targetSourcedBeans.contains(beanName)) {
+			return bean;
+		}
+		if (Boolean.FALSE.equals(this.advisedBeans.get(cacheKey))) {
+			return bean;
+		}
+		if (isInfrastructureClass(bean.getClass()) || shouldSkip(bean.getClass(), beanName)) {
+			this.advisedBeans.put(cacheKey, Boolean.FALSE);
+			return bean;
+		}
+
+		// Create proxy if we have advice.
+		Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass(), beanName, null);
+		if (specificInterceptors != DO_NOT_PROXY) {
+			this.advisedBeans.put(cacheKey, Boolean.TRUE);
+			// 创建代理
+            Object proxy = createProxy(
+					bean.getClass(), beanName, specificInterceptors, new SingletonTargetSource(bean));
+			this.proxyTypes.put(cacheKey, proxy.getClass());
+            return proxy;
+		}
+
+		this.advisedBeans.put(cacheKey, Boolean.FALSE);
+		return bean;
+	}
+
+
+```

@@ -11,7 +11,17 @@
         http://www.springframework.org/schema/aop
 		https://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <context:component-scan base-package="cc.alking.example.springboot.aop;cc.alking.example.springboot.service"/>
+<!--    <context:component-scan base-package="cc.alking.example.springboot.aop;cc.alking.example.springboot.service"/>-->
     <aop:aspectj-autoproxy/>
+    <beans>
+
+        <bean id="accountServiceImpl" class="cc.alking.example.springboot.service.impl.AccountServiceImpl">
+
+        </bean>
+
+        <bean id="accountAspect" class="cc.alking.example.springboot.aop.AccountAspect" >
+
+        </bean>
+    </beans>
 
 </beans>
