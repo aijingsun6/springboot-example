@@ -2,5 +2,5 @@ package cc.alking.example.springboot.service;
 
 public interface AccountService {
 
-    void register(String name, String pwd);
+    boolean register(String name, String pwd);
 }

@@ -11,7 +11,8 @@ public class AccountServiceImpl implements AccountService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountServiceImpl.class);
 
     @Override
-    public void register(String name, String pwd) {
+    public boolean register(String name, String pwd) {
         LOGGER.info("register name={},pwd={}", name, pwd);
+        return true;
     }
 }
