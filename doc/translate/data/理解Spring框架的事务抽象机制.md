@@ -189,3 +189,5 @@ DataSource bean 的定义与前面展示的本地 JDBC 示例类似，因此以�
 
 <bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager"/>
 ```
+# 参考文档
+- [Understanding the Spring Framework Transaction Abstraction](https://docs.spring.io/spring-framework/reference/6.2/data-access/transaction/strategies.html)

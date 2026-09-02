@@ -18,4 +18,7 @@ Spring Framework 的 TransactionInterceptor 为命令式和响应式编程模型
 
 下图展示了在事务代理上调用方法的概念视图。
 
-![](./images/image.png)
+![](https://docs.spring.io/spring-framework/reference/6.2/_images/tx.png)
+
+# 参考文档
+- [Understanding the Spring Framework’s Declarative Transaction Implementation](https://docs.spring.io/spring-framework/reference/6.2/data-access/transaction/declarative/tx-decl-explained.html)
