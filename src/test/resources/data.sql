@@ -1,0 +1,1 @@
+insert into t_actor(first_name,last_name) VALUES ('foo','bar');
