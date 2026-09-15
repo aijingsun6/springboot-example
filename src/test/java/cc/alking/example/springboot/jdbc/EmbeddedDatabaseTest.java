@@ -18,7 +18,7 @@ public class EmbeddedDatabaseTest {
         // classpath:schema.sql and classpath:data.sql
         db = new EmbeddedDatabaseBuilder()
                 .generateUniqueName(true)
-                .addDefaultScripts()
+                .addScripts("schema.sql", "data.sql")
                 .setType(EmbeddedDatabaseType.H2)
                 .build();
     }
