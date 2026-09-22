@@ -1,6 +1,10 @@
 package cc.alking.example.springboot.controller;
 
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,8 +14,12 @@ import java.util.Map;
 @RestController
 public class IndexController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+
     @GetMapping(path = "/index", consumes = "*/*")
-    public Object index(){
+    public Object index(ServletRequest request, ServletResponse response){
+        LOGGER.info("request: {}",request);
+        LOGGER.info("response: {}",response);
         return Map.of("status","OK");
     }
 

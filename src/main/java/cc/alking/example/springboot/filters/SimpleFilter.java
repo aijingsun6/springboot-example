@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Component
+//@Component
 public class SimpleFilter implements Filter{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleFilter.class);

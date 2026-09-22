@@ -14,32 +14,32 @@ public class SimpleInstantiationAwareBeanPostProcessor implements InstantiationA
 
     @Override
     public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
-        LOGGER.info("1. postProcessBeforeInstantiation,beanClass:{}, beanName:{}", beanClass, beanName);
+        LOGGER.debug("1. postProcessBeforeInstantiation,beanClass:{}, beanName:{}", beanClass, beanName);
         return null;
     }
 
     @Override
     public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
-        LOGGER.info("2. postProcessAfterInstantiation,bean:{},beanName:{}", bean, beanName);
+        LOGGER.debug("2. postProcessAfterInstantiation,bean:{},beanName:{}", bean, beanName);
         return true;
     }
 
     @Override
     public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName)
             throws BeansException {
-        LOGGER.info("3. postProcessProperties,pvs:{},bean:{},beanName:{}", pvs, bean, beanName);
+        LOGGER.debug("3. postProcessProperties,pvs:{},bean:{},beanName:{}", pvs, bean, beanName);
         return pvs;
     }
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        LOGGER.info("4. postProcessBeforeInitialization,bean:{},beanName:{}", bean, beanName);
+        LOGGER.debug("4. postProcessBeforeInitialization,bean:{},beanName:{}", bean, beanName);
         return bean;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        LOGGER.info("5. postProcessAfterInitialization,bean:{},beanName:{}", bean, beanName);
+        LOGGER.debug("5. postProcessAfterInitialization,bean:{},beanName:{}", bean, beanName);
         return bean;
     }
 
