@@ -137,6 +137,23 @@ AbstractAutowireCapableBeanFactory ->> AbstractAutowireCapableBeanFactory:invoke
 
 		return wrappedBean;
 	}
+
+    	private void invokeAwareMethods(String beanName, Object bean) {
+		if (bean instanceof Aware) {
+			if (bean instanceof BeanNameAware beanNameAware) {
+				beanNameAware.setBeanName(beanName);
+			}
+			if (bean instanceof BeanClassLoaderAware beanClassLoaderAware) {
+				ClassLoader bcl = getBeanClassLoader();
+				if (bcl != null) {
+					beanClassLoaderAware.setBeanClassLoader(bcl);
+				}
+			}
+			if (bean instanceof BeanFactoryAware beanFactoryAware) {
+				beanFactoryAware.setBeanFactory(AbstractAutowireCapableBeanFactory.this);
+			}
+		}
+	}
 ```
 相同的步骤如下
 - BeanNameAware
