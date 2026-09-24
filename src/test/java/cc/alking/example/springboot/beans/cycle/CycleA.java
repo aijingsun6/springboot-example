@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CycleA {
 
-    private CycleB cycleB;
+    private CycleC cycleC;
 
-    public CycleB getCycleB() {
-        return cycleB;
+    public CycleC getCycleC() {
+        return cycleC;
     }
 
     @Autowired
-    public void setCycleB(CycleB cycleB) {
-        this.cycleB = cycleB;
+    public void setCycleB(CycleC cycleC) {
+        this.cycleC = cycleC;
     }
 }

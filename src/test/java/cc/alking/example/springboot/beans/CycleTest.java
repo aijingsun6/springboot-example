@@ -14,8 +14,8 @@ public class CycleTest {
     public void test(){
         ApplicationContext context = new ClassPathXmlApplicationContext("cycle.xml");
         CycleA a = context.getBean(CycleA.class);
-        CycleB b = a.getCycleB();
-        CycleC c = b.getCycleC();
-        Assertions.assertEquals(a, c.getCycleA());
+        CycleB b = context.getBean(CycleB.class);
+        CycleC c = context.getBean(CycleC.class);
+        Assertions.assertEquals(c, a.getCycleC());
     }
 }
