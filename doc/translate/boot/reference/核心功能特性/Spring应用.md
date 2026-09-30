@@ -412,4 +412,4 @@ Spring Boot 还可以配置为暴露一个启动端点，该端点以 JSON 文�
 
 # 参考文档
 - [virtual-threads](https://docs.oracle.com/en/java/javase/24/core/virtual-threads.html)
-- 
+- [SpringApplication](https://docs.spring.io/spring-boot/reference/features/spring-application.html)
