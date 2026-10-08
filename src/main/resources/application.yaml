@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  main:
+    log-startup-info: true
+  application:
+    name: springboot
+  banner:
+    location: banner.txt
+    charset: utf-8
+
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    fallback-to-system-locale: false

@@ -19,12 +19,12 @@ public class SpringbootApplication {
 //		SpringApplication.run(SpringbootApplication.class, args);
 
         SpringApplication application = new SpringApplication(SpringbootApplication.class);
-        application.addListeners(new ApplicationListener<ApplicationEvent>() {
-            @Override
-            public void onApplicationEvent(ApplicationEvent event) {
-                LOGGER.info("ApplicationEvent:{}", event);
-            }
-        });
+//        application.addListeners(new ApplicationListener<ApplicationEvent>() {
+//            @Override
+//            public void onApplicationEvent(ApplicationEvent event) {
+//                LOGGER.info("ApplicationEvent:{}", event);
+//            }
+//        });
         application.setBannerMode(Banner.Mode.OFF);
         application.setApplicationStartup(new BufferingApplicationStartup(2048));
         application.run(args);

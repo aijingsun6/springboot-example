@@ -7,8 +7,10 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.ZoneId;
@@ -18,6 +20,12 @@ import java.util.*;
 public class IndexController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+
+    private final MessageSource messageSource;
+
+    public IndexController(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @GetMapping(path = "/index", consumes = "*/*")
     public Object index(ServletRequest request, ServletResponse response, HttpSession session, HttpMethod httpMethod, Locale locale,
@@ -49,11 +57,18 @@ public class IndexController {
         LOGGER.info("session detail: {}", builder);
     }
 
-    @GetMapping(path = "/error", consumes = "*/*")
-    public Map<String, Object> handle(HttpServletRequest request) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("status", request.getAttribute("jakarta.servlet.error.status_code"));
-        map.put("reason", request.getAttribute("jakarta.servlet.error.message"));
-        return map;
+    @GetMapping("/hello")
+    public Map<String, String> hello(
+            @RequestParam(defaultValue = "World", name="name") String name,
+            Locale locale) {
+
+        String welcome = messageSource.getMessage("welcome", null, locale);
+        String greeting = messageSource.getMessage("greeting", new Object[]{name}, locale);
+
+        return Map.of(
+                "welcome", welcome,
+                "greeting", greeting,
+                "locale", locale.toString()
+        );
     }
 }
