@@ -1,6 +1,19 @@
 logging:
   level:
     web: debug
+management:
+  endpoint:
+    beans:
+      enabled: true
+    conditions:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,beans,conditions
+    access:
+      default: none
+
 server:
   port: 8080
 spring:
