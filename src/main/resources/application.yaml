@@ -1,6 +1,7 @@
 logging:
   level:
     web: debug
+
 management:
   endpoint:
     beans:
@@ -8,6 +9,9 @@ management:
     conditions:
       enabled: true
   endpoints:
+    jmx:
+      exposure:
+        include: "*"
     web:
       exposure:
         include: health,info,beans,conditions
@@ -17,6 +21,8 @@ management:
 server:
   port: 8080
 spring:
+  jmx:
+    enabled: true
   main:
     log-startup-info: true
   application:
